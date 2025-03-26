@@ -34,3 +34,19 @@ class DataValidationConfig:
     STATUS_FILE: str
     unzip_data_dir: Path
     all_schema: dict
+
+
+"""
+DataTransformationConfig is a configuration entity class that holds the paths 
+required for the data transformation process.
+
+Attributes:
+    root_dir (Path): The root directory where the data transformation artifacts 
+        and outputs will be stored.
+    data_path (Path): The path to the input data that will be used for 
+        transformation.
+"""
+@dataclass
+class DataTransformationConfig:
+    root_dir: Path
+    data_path: Path
