@@ -99,3 +99,37 @@ class ConfigurationManager:
             return data_transformation_config
         except Exception as e:
             raise e
+
+    def get_model_trainer_config(self) -> ModelTrainerConfig:
+        """
+        Retrieves the configuration for the model trainer and initializes a ModelTrainerConfig object.
+
+        This method extracts the necessary configuration details for training a model, including
+        file paths, model parameters, and target column schema. It also ensures that the required
+        directories for storing model-related files are created.
+
+        Returns:
+            ModelTrainerConfig: An object containing the configuration details for the model trainer.
+
+        Raises:
+            Exception: If any error occurs during the retrieval or initialization of the configuration.
+        """
+        try:
+            config = self.config.model_trainer
+            params = self.params.ElasticNet
+            schema = self.schema.TARGET_COLUMN
+
+            create_directories([config.root_dir])
+
+            model_trainer_config = ModelTrainerConfig(
+                root_dir=config.root_dir,
+                train_data_path=config.train_data_path,
+                test_data_path=config.test_data_path,
+                model_name=config.model_name,
+                alpha=params.alpha,
+                l1_ratio=params.l1_ratio,
+                target_column=schema.name,
+            )
+            return model_trainer_config
+        except Exception as e:
+            raise e
