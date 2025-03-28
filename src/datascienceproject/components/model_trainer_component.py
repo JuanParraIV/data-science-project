@@ -5,6 +5,12 @@ from src.datascienceproject.entity.config_entity import ModelTrainerConfig
 from sklearn.linear_model import ElasticNet
 import joblib
 
+os.environ["MLFLOW_TRACKING_URI"] = (
+    "https://dagshub.com/JuanParraIV/data-science-project.mlflow"
+)
+os.environ["MLFLOW_TRACKING_USERNAME"] = "JuanParraIV"
+
+
 
 class ModelTrainer:
     def __init__(self, config: ModelTrainerConfig):

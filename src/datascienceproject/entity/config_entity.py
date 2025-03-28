@@ -11,6 +11,8 @@ Attributes:
     local_data_file (Path): The local file path where the downloaded data will be stored.
     unzip_dir (Path): The directory where the data will be unzipped.
 """
+
+
 @dataclass
 class DataIngestionConfig:
     root_dir: Path
@@ -28,6 +30,8 @@ Attributes:
     unzip_data_dir (Path): The directory where unzipped data will be stored.
     all_schema (dict): A dictionary containing schema definitions for data validation.
 """
+
+
 @dataclass
 class DataValidationConfig:
     root_dir: Path
@@ -46,6 +50,8 @@ Attributes:
     data_path (Path): The path to the input data that will be used for 
         transformation.
 """
+
+
 @dataclass
 class DataTransformationConfig:
     root_dir: Path
@@ -64,6 +70,8 @@ Attributes:
     l1_ratio (float): The ElasticNet mixing parameter, with 0 <= l1_ratio <= 1.
     target_column (str): The name of the target column in the dataset.
 """
+
+
 @dataclass
 class ModelTrainerConfig:
     root_dir: Path
@@ -73,3 +81,28 @@ class ModelTrainerConfig:
     alpha: float
     l1_ratio: float
     target_column: str
+
+
+"""
+ModelEvaluationConfig is a data class that holds configuration details for the model evaluation process.
+
+Attributes:
+    root_dir (Path): The root directory where evaluation-related files are stored.
+    test_data_path (Path): The file path to the test dataset.
+    model_path (Path): The file path to the trained model to be evaluated.
+    all_params (dict): A dictionary containing all parameters used during evaluation.
+    metric_file_name (Path): The file path where evaluation metrics will be saved.
+    target_column (str): The name of the target column in the dataset.
+    mlflow_uri (str): The URI for the MLflow tracking server.
+"""
+
+
+@dataclass
+class ModelEvaluationConfig:
+    root_dir: Path
+    test_data_path: Path
+    model_path: Path
+    all_params: dict
+    metric_file_name: Path
+    target_column: str
+    mlflow_uri: str

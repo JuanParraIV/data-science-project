@@ -46,7 +46,6 @@ class ConfigurationManager:
             raise e
 
     def get_data_validation_config(self) -> DataValidationConfig:
-
         """
         Retrieves the data validation configuration.
         This method extracts the data validation configuration from the main
@@ -131,5 +130,47 @@ class ConfigurationManager:
                 target_column=schema.name,
             )
             return model_trainer_config
+        except Exception as e:
+            raise e
+
+    def get_model_evaluation_config(self) -> ModelEvaluationConfig:
+        """
+        Retrieves the configuration for model evaluation and constructs a
+        ModelEvaluationConfig object.
+
+        This method reads the model evaluation configuration, parameters for
+        ElasticNet, and the target column schema. It ensures that the necessary
+        directories exist and then creates a ModelEvaluationConfig object with
+        the provided details.
+
+        Returns:
+            ModelEvaluationConfig: An object containing the configuration details
+            for model evaluation, including paths, parameters, and target column
+            information.
+
+        Raises:
+            Exception: If any error occurs during the configuration retrieval or
+            object creation process.
+        """
+        try:
+            config = self.config.model_evaluation
+            params = self.params.ElasticNet
+            schema = self.schema.TARGET_COLUMN
+
+            # Create directories if they don't exist
+            create_directories([config.root_dir])
+
+            # Create the ModelEvaluationConfig object
+            model_evaluation_config = ModelEvaluationConfig(
+                root_dir=config.root_dir,
+                test_data_path=config.test_data_path,
+                model_path=config.model_path,
+                metric_file_name=config.metric_file_name,
+                all_params=params,
+                target_column=schema.name,
+                mlflow_uri="https://dagshub.com/JuanParraIV/data-science-project.mlflow",
+            )
+
+            return model_evaluation_config
         except Exception as e:
             raise e
